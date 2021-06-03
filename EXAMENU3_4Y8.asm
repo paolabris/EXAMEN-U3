@@ -11,28 +11,28 @@ include BIBLIO_MACRO.lib ;incluir biblioteca de macros
 .stack
 .data 
     
-    msjTit db 'EXAMEN U3- DARIEN Y PAOLA',10,13,'$'
-    
-    ruta  db 'C:\EXAMEN U3\',0
-    ruta1 db 'C:\EXAMEN U3\WALL-E',0
-    ruta2 db 'C:\EXAMEN U3\WALL-E\Riego.txt',0
+    msjTit          db 'EXAMEN U3- DARIEN Y PAOLA',10,13,'$'
+    msjContinuar    db  'Presione cualquier tecla para continuar...'
+    ruta            db 'C:\EXAMEN U3\',0
+    ruta1           db 'C:\EXAMEN U3\WALL-E',0
+    ruta2           db 'C:\EXAMEN U3\WALL-E\Riego.txt',0
      
-    msjIni db 'Creando directorio...',10,13,'$'
-    msjSi  db 'Se ha creado el directorio',10,13,'$'
-    msjNO  db 'No se ha creado el directorio',10,13,'$'
+    msjIni          db 'Creando directorio...',10,13,'$'
+    msjSi           db 'Se ha creado el directorio',10,13,'$'
+    msjNO           db 'No se ha creado el directorio',10,13,'$'
      
     msjSiEscribir   db 'Se ha escrito en el archivo. Verifique$'
     msjNoEscribir   db 'No se ha podido ESCRIBIR en el archivo. Verifique$'
       
-    msjNOLeer db 'NO se ha podido leer el archivo'
-    msjNOAbrir db 'NO se ha podido abrir el archivo'
+    msjNOLeer       db 'NO se ha podido leer el archivo'
+    msjNOAbrir      db 'NO se ha podido abrir el archivo'
     
 
-    msjSalida db 10,13, 'Datos le',161,'dos del archivo:',10,13
-    leido db 500 dup('$')
+    msjSalida       db 10,13, 'Datos le',161,'dos del archivo:',10,13
+    leido           db 500 dup('$')
     
     ;--DATOS A ESCRIBIR--
-    datosRiego  db '18-06-2021 Riego Completo'
+    datosRiego      db '18-06-2021 Riego Completo'
     totalEscribir   dw  26
     manejador       dw  0  
     
@@ -55,8 +55,11 @@ inicio: mov ax,@data
         
         jc errorCrear
         
-        CADENA_SIN_COLOR msjSi 
-        
+        CADENA_SIN_COLOR msjSi
+
+        CADENA_SIN_COLOR msjContinuar
+        CALL TECLA
+        CALL CLEAN_SCREEN
        
         
         ;--ESCRIBIR ARCHIVOS TXT 
@@ -129,7 +132,23 @@ fin:
        int 21h
         
 ;************************PROCEDIMIENTOS***************
-;no se si los quieras incluir con un bloc de notas 
-;o poner aqui
+
+    TECLA   PROC
+            MOV AH,0
+            INT 16H
+        RET
+       
+    ENDP
+    
+    CLEAN_SCREEN PROC
+    
+        MOV AH,0FH  ;INTERRUPCION 15 DETECTA TIPO RESOLUCION (80X25 EN ESTE CASO)
+        INT 10H     ;REGRESAR EL MODO EN <AL>
+        MOV AH,0
+        INT 10H
+            RET        
+        
+    ENDP
+
 ;*****************************************************
 end
