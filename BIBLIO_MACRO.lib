@@ -1,0 +1,29 @@
+CADENA_COLOR  MACRO  cadena,long,ren,col,pag,modo,color
+           MOV AH,19
+           LEA BP,cadena   ; Cadena
+           MOV CX,long     ; Longitud
+           MOV DH,ren      ; ren
+           MOV DL,col      ; col
+           MOV BH,pag      ; pág
+           MOV AL,modo     ; modo
+           MOV BL,color   ;ATRIBUTO (COLOR)
+           INT 10H
+CADENA_COLOR  ENDM
+
+
+CADENA_SIN_COLOR MACRO cadena
+         MOV AH,9
+         LEA DX,cadena
+         INT 21H
+CADENA_SIN_COLOR ENDM
+
+
+CURSOR MACRO R,C,P
+     MOV AH,2
+     MOV DH,R
+     MOV DL,C
+     MOV BH,P
+     INT 10H
+CURSOR ENDM
+
+
