@@ -57,7 +57,7 @@ inicio: mov ax,@data
         
         CADENA_SIN_COLOR msjSi 
         
-        jmp fin
+       
         
         ;--ESCRIBIR ARCHIVOS TXT 
         
@@ -81,7 +81,7 @@ inicio: mov ax,@data
             JC errorEscribir
             
                 CADENA_SIN_COLOR msjSiEscribir
-                JMP fin
+                
         
          
         ;--LECTURA DE ARCHIVOS TXT 
