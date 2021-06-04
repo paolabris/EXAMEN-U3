@@ -84,7 +84,9 @@ inicio: mov ax,@data
             JC errorEscribir
             
                 CADENA_SIN_COLOR msjSiEscribir
-                
+                CADENA_SIN_COLOR msjContinuar
+                CALL TECLA
+                CALL CLEAN_SCREEN
         
          
         ;--LECTURA DE ARCHIVOS TXT 
@@ -110,21 +112,34 @@ inicio: mov ax,@data
         
         CADENA_SIN_COLOR msjSalida
         CADENA_SIN_COLOR leido
+        CADENA_SIN_COLOR msjContinuar
+        CALL TECLA
+        CALL CLEAN_SCREEN
         jmp fin
         
 errorCrear: 
     CADENA_SIN_COLOR msjNo
-            
+    CADENA_SIN_COLOR msjContinuar
+    CALL TECLA
+    CALL CLEAN_SCREEN        
 errorAbrir: 
     CADENA_SIN_COLOR msjNOabrir
     jmp fin
+    CADENA_SIN_COLOR msjContinuar
+    CALL TECLA
+    CALL CLEAN_SCREEN
     
 errorEscribir:
 
     CADENA_SIN_COLOR msjNOEscribir      
-    
+    CADENA_SIN_COLOR msjContinuar
+    CALL TECLA
+    CALL CLEAN_SCREEN
 errorLeer: 
     CADENA_SIN_COLOR msjNOleer
+    CADENA_SIN_COLOR msjContinuar
+    CALL TECLA
+    CALL CLEAN_SCREEN
         
         
 fin: 
