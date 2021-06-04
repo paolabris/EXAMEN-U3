@@ -32,8 +32,8 @@ include BIBLIO_MACRO.lib ;incluir biblioteca de macros
     leido           db 500 dup('$')
     
     ;--DATOS A ESCRIBIR--
-    datosRiego      db '18-06-2021 Riego Completo'
-    totalEscribir   dw  26
+    datosBlueAm      db '19-06-2021 Riego Completo - Carga Solar: 100' ;Datos a escribir en el archivo
+    totalEscribir   dw  45
     manejador       dw  0  
     
 .code
@@ -43,7 +43,7 @@ inicio: mov ax,@data
                    
         MOV DX, offset msjTit
                    
-        ;--CREAR ARCHIVOS EN C 
+        ;--CREAR ARCHIVOS EN DIRECTORIO ALMACENADO EN LA VARIABLE ruta1
         
         MOV AH,39H
         LEA DX,ruta
@@ -78,7 +78,7 @@ inicio: mov ax,@data
                 MOV AH,40H          ;Escribir en el archivo
                 MOV BX,manejador    
                 MOV CX,totalEscribir 
-                LEA DX,datosRiego
+                LEA DX,datosBlueAm  ; Escritura de datos generados por el sistema!
                 INT 21H
                 
             JC errorEscribir
@@ -102,7 +102,7 @@ inicio: mov ax,@data
         mov ah,3fh
         mov cx,15 ;caracteres a leer
         lea dx,leido
-        mov bx,manejador
+        mov bx,manejador    
         int 21h
         jc errorLeer 
         
